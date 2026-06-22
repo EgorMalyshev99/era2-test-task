@@ -37,7 +37,7 @@ export const TaskRow = memo(function TaskRow({
 
   return (
     <div
-      className="group flex items-center gap-4 rounded-xl border border-era-line
+      className="group flex items-center gap-4 rounded-xl border border-border
         bg-card px-4 py-3 transition-colors hover:border-era-fg-low/30"
     >
       <div

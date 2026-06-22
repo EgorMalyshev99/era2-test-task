@@ -36,7 +36,7 @@ export const TaskCard = memo(function TaskCard({
   const Icon = typeIcons[task.type]
 
   return (
-    <div className="rounded-xl border border-era-line bg-card p-4">
+    <div className="rounded-xl border border-border bg-card p-4">
       <div className="flex items-start gap-3">
         <div
           className={cn(

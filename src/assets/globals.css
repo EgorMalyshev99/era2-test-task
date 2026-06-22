@@ -7,7 +7,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @utility container {
-  @apply mx-auto;
+  @apply mx-auto px-4;
 }
 
 @theme inline {

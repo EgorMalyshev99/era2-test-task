@@ -26,8 +26,7 @@ export function QueueStats({ stats }: QueueStatsProps) {
         <Card
           key={item.key}
           className={cn(
-            `flex flex-col items-start gap-2 rounded-xl border-era-line
-            bg-era-bg-1 px-4 py-3 ring-0`,
+            'flex flex-col items-start gap-2 bg-era-bg-1 px-4 py-3',
           )}
         >
           <div className="flex items-center gap-2">

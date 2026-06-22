@@ -38,8 +38,8 @@ export function StatusBadge({ status, className }: StatusBadgeProps) {
       variant="label"
       as="span"
       className={cn(
-        `inline-flex items-center rounded-full px-2.5 py-0.5 tracking-normal
-        normal-case`,
+        `inline-flex items-center rounded-full border border-border px-2.5
+        py-0.5 tracking-normal normal-case`,
         config.className,
         className,
       )}
