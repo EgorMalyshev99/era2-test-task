@@ -1,0 +1,43 @@
+---
+description: FSD-архитектура и правила импортов ERA2
+globs: src/**/*
+alwaysApply: false
+---
+
+# Feature-Sliced Design
+
+Слои (сверху вниз): `app → pages → widgets → features → entities → shared`
+
+## Импорты
+
+- Алиас `@/` = `src/`
+- Импорт **только через `index.ts`** слайса
+- Запрещены deep-import: `@/features/.../ui/Component`
+- Запрещены относительные цепочки между слайсами
+
+```ts
+// ✅
+import { useQueue } from '@/features/generation-queue'
+import type { GenerationTask } from '@/entities/generation-task'
+
+// ❌
+import { TaskRow } from '@/features/generation-queue/ui/TaskRow'
+```
+
+## Размещение кода
+
+| Тип кода            | Куда класть                         |
+| ------------------- | ----------------------------------- |
+| Доменные типы       | `entities/*/model/types.ts`         |
+| Редьюсер, движок    | `features/*/model/`                 |
+| UI фичи             | `features/*/ui/`                    |
+| Утилиты слайса      | `features/*/lib/` или `shared/lib/` |
+| Переиспользуемый UI | `shared/ui/`                        |
+| Композиция экрана   | `widgets/*/ui/`                     |
+| Страница            | `pages/` — только сборка виджетов   |
+
+## Компоненты
+
+- Один компонент — один файл
+- Компоненты получают данные и колбэки, без прямых вызовов движка
+- Новый экспорт наружу слайса — добавить в `index.ts`

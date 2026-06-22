@@ -1,0 +1,23 @@
+{
+  "semi": false,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "printWidth": 80,
+  "plugins": [
+    "prettier-plugin-tailwindcss",
+    "prettier-plugin-classnames",
+    "prettier-plugin-merge"
+  ],
+  "tailwindStylesheet": "./src/assets/globals.css",
+  "tailwindFunctions": ["cn", "cva"],
+  "customFunctions": ["cn", "cva", "clsx"],
+  "overrides": [
+    {
+      "files": ["*.md", "*.mdx"],
+      "options": {
+        "plugins": []
+      }
+    }
+  ]
+}

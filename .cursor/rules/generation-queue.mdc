@@ -1,0 +1,42 @@
+---
+description: Фича generation-queue — движок, стейт, UI
+globs: src/features/generation-queue/**,src/widgets/generation-queue/**,src/entities/generation-task/**
+alwaysApply: false
+---
+
+# generation-queue
+
+## Стейт
+
+| Слой            | Файл                | Ответственность                     |
+| --------------- | ------------------- | ----------------------------------- |
+| Задачи + FSM    | `queueReducer.ts`   | Переходы статусов, `MAX_CONCURRENT` |
+| Side effects    | `queueEngine.ts`    | Тики, слоты, ~15% fail, cleanup     |
+| Провайдер       | `QueueProvider.tsx` | init, persist, engine lifecycle     |
+| UI-предпочтения | `uiStore.ts`        | фильтр, поиск, sort, statusBarMode  |
+| Публичный API   | `useQueue.ts`       | stats, filteredTasks, actions       |
+
+## Изменения логики
+
+1. Сначала `queueReducer.ts` / `queueEngine.ts`
+2. Обновить `selectors.ts` при изменении фильтрации
+3. Добавить тест в `model/*.test.ts`
+4. UI менять только если меняется контракт хуков
+
+## Мок-движок
+
+- Не мутировать tasks напрямую — только dispatch
+- `CANCEL`/`REMOVE` → `engine.onCancel(taskId)` до dispatch
+- Unmount → `engine.stopAll()`
+- После reload: `running` → `queued`
+
+## UI-компоненты
+
+- `TaskRow` (desktop/tablet), `TaskCard` (mobile)
+- `GenerationStatusBar` — глобально в `AppLayout`, тот же `QueueProvider`
+- Список: `TaskList` → `AnimatedTaskList` или `VirtualizedTaskList` (≥80)
+- Undo: `useQueueUndo` + Sonner toast
+
+## Дизайн
+
+Токены в `src/assets/globals.css`: `--era-accent`, `--status-*`. Не хардкодить цвета в компонентах.
